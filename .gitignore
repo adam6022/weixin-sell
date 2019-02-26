@@ -11,11 +11,13 @@ HELP.md
 .springBeans
 .sts4-cache
 
+
 ### IntelliJ IDEA ###
 .idea
 *.iws
 *.iml
 *.ipr
+*.bat
 
 ### NetBeans ###
 /nbproject/private/
