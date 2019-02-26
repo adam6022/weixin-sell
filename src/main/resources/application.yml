@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: root
+    url: jdbc:mysql://172.17.66.44:3306/db_wxdc?characterEncoding=utf-8&useSSL=false
+  jpa:
+    show-sql: true
+server:
+  port: 8060
+  context-path: /sell
+
+logging:
+  pattern:
+    console: "%d -%msg%n"
+  #path: /sell-log/
+  file: /sell-log/sell.log
+  level:
+    com.zgadam.sell: debug
