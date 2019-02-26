@@ -1,6 +1,7 @@
 package com.zgadam.sell.service.impl;
 
 import com.zgadam.sell.dataobject.ProductInfo;
+import com.zgadam.sell.dto.CartDTO;
 import com.zgadam.sell.enums.ProductStatusEnum;
 import com.zgadam.sell.enums.ResultEnum;
 import com.zgadam.sell.exception.SellException;
@@ -10,15 +11,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 /**
- * Created by 廖师兄
- * 2017-05-09 17:31
+ * @author yd
  */
 @Service
 public class ProductServiceImpl implements ProductService {
+
 
     @Autowired
     private ProductInfoRepository repository;
@@ -43,7 +45,41 @@ public class ProductServiceImpl implements ProductService {
         return repository.save(productInfo);
     }
 
+    @Override
+    @Transactional
+    public void increaseStock(List<CartDTO> cartDTOList) {
+        for (CartDTO cartDTO: cartDTOList) {
+            ProductInfo productInfo = repository.findOne(cartDTO.getProductId());
+            if (productInfo == null) {
+                throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
+            }
+            Integer result = productInfo.getProductStock() + cartDTO.getProductQuantity();
+            productInfo.setProductStock(result);
 
+            repository.save(productInfo);
+        }
+
+    }
+
+    @Override
+    @Transactional
+    public void decreaseStock(List<CartDTO> cartDTOList) {
+        for (CartDTO cartDTO: cartDTOList) {
+            ProductInfo productInfo = repository.findOne(cartDTO.getProductId());
+            if (productInfo == null) {
+                throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
+            }
+
+            Integer result = productInfo.getProductStock() - cartDTO.getProductQuantity();
+            if (result < 0) {
+                throw new SellException(ResultEnum.PRODUCT_STOCK_ERROR);
+            }
+
+            productInfo.setProductStock(result);
+
+            repository.save(productInfo);
+        }
+    }
 
     @Override
     public ProductInfo onSale(String productId) {
