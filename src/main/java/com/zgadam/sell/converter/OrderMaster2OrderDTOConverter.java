@@ -1,7 +1,7 @@
 package com.zgadam.sell.converter;
 
-import com.imooc.dataobject.OrderMaster;
-import com.imooc.dto.OrderDTO;
+import com.zgadam.sell.dataobject.OrderMaster;
+import com.zgadam.sell.dto.OrderDTO;
 import org.springframework.beans.BeanUtils;
 
 import java.util.List;

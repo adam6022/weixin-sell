@@ -6,9 +6,12 @@ spring:
     url: jdbc:mysql://172.17.66.44:3306/db_wxdc?characterEncoding=utf-8&useSSL=false
   jpa:
     show-sql: true
+
+  jackson:
+    default-property-inclusion: non_null
 server:
-  port: 8060
-  context-path: /sell
+  port: 80
+  #context-path: /sell
 
 logging:
   pattern:
