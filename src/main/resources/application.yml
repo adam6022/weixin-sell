@@ -20,3 +20,7 @@ logging:
   file: /sell-log/sell.log
   level:
     com.zgadam.sell: debug
+
+wechat:
+  mpAppId: wxd99431bbff8305a0
+  mpAppSecret: 60f78681d063590a469f1b297feff3c4
