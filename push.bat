@@ -1,4 +1,4 @@
-@echo off
+﻿@echo off
 set /p commit=commit:
 title auto commit
 echo 【+++++++++++++++++++++开始add+++++++++++++++++++++】
