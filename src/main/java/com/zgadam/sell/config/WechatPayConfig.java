@@ -1,3 +1,4 @@
+
 package com.zgadam.sell.config;
 
 import com.lly835.bestpay.config.WxPayH5Config;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Component;
 /** * Created by 廖师兄
  * 2017-07-04 01:05
  */
+
 @Component
 public class WechatPayConfig {
 
@@ -34,3 +36,4 @@ public class WechatPayConfig {
         return wxPayH5Config;
     }
 }
+
