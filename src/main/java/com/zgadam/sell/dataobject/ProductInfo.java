@@ -16,7 +16,7 @@ import java.util.Date;
  */
 @Entity
 @Data
-@DynamicUpdate
+@DynamicUpdate//使updateTime自动更新
 public class ProductInfo {
 
     @Id

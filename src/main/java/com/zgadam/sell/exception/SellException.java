@@ -3,7 +3,6 @@ package com.zgadam.sell.exception;
 import com.zgadam.sell.enums.ResultEnum;
 
 /**
- * Created by 廖师兄
  * 2017-06-11 18:55
  */
 public class SellException extends RuntimeException{
