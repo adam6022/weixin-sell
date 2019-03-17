@@ -9,6 +9,9 @@ spring:
 
   jackson:
     default-property-inclusion: non_null
+  redis:
+    host: 47.96.155.220
+    port: 8379
 server:
   port: 80
   context-path: /sell
