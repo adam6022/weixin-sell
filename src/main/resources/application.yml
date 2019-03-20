@@ -13,7 +13,7 @@ spring:
     host: 47.96.155.220
     port: 8379
 server:
-  port: 80
+  port: 8090
   context-path: /sell
 
 logging:
