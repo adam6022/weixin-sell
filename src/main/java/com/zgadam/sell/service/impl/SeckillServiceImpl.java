@@ -1,8 +1,10 @@
 package com.zgadam.sell.service.impl;
 
 import com.zgadam.sell.exception.SellException;
+import com.zgadam.sell.service.RedisLock;
 import com.zgadam.sell.service.SeckillService;
 import com.zgadam.sell.utils.KeyUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -15,6 +17,11 @@ import java.util.Map;
  */
 @Service
 public class SeckillServiceImpl implements SeckillService {
+
+     long TIMEOUT = 10 * 1000;
+
+    @Autowired
+    private RedisLock redisLock;
 
     /**
      * 国庆活动，皮蛋粥特价，限量100000份
@@ -52,7 +59,15 @@ public class SeckillServiceImpl implements SeckillService {
     }
 
     @Override
-    public void orderProductMockDiffUser(String productId) {
+    public  void orderProductMockDiffUser(String productId) {
+
+        //加锁
+        long time = System.currentTimeMillis() + TIMEOUT ;
+        boolean lock = redisLock.lock(productId, String.valueOf(time));
+        if(!lock){
+            throw  new SellException(101, "哎约喂，人也太多了，换个姿势再试试~~");
+        }
+
         //查询该商品库存，为0则活动结束
         int stockNum = stock.get(productId);
         if (stockNum == 0){
@@ -69,5 +84,8 @@ public class SeckillServiceImpl implements SeckillService {
             }
             stock.put(productId, stockNum);
         }
+
+        //解锁
+        redisLock.unlock(productId, String.valueOf(time));
     }
 }
